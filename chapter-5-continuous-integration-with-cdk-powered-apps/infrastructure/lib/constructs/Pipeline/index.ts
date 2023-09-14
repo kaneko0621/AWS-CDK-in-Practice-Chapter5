@@ -84,7 +84,10 @@ export class PipelineStack extends Construct {
             },
             pre_build: {
               'on-failure': 'ABORT',
-              commands: ['cd server', 'yarn install'],
+              commands: [
+                'cd chapter-5-continuous-integration-with-cdk-powered-apps/server',
+                'yarn install',
+              ],
             },
             build: {
               'on-failure': 'ABORT',
@@ -166,7 +169,10 @@ export class PipelineStack extends Construct {
             },
             pre_build: {
               'on-failure': 'ABORT',
-              commands: ['cd web', 'yarn install'],
+              commands: [
+                'cd chapter-5-continuous-integration-with-cdk-powered-apps/web',
+                'yarn install',
+              ],
             },
             build: {
               'on-failure': 'ABORT',
