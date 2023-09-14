@@ -16,13 +16,13 @@ import {
 
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 
-config({ path: '.env.development' });
+config({ path: '.env.production' });
 
 interface Props {
   environment: string;
 }
 
-export class DevelopmentPipeline extends Construct {
+export class ProductionPipeline extends Construct {
   readonly frontEndTestProject: PipelineProject;
 
   readonly backEndTestProject: PipelineProject;
@@ -75,7 +75,7 @@ export class DevelopmentPipeline extends Construct {
             pre_build: {
               'on-failure': 'ABORT',
               commands: [
-                'cd chapter-5-continuous-integration-with-cdk-powered-apps/server',
+                'cd server/',
                 'yarn install',
               ],
             },
@@ -122,9 +122,9 @@ export class DevelopmentPipeline extends Construct {
               'on-failure': 'ABORT',
               commands: [
                 'cd ../web',
-                'yarn build:dev',
+                'yarn build:prod',
                 'cd ../infrastructure',
-                'yarn cdk:dev deploy',
+                'yarn cdk deploy',
               ],
             },
             post_build: {
@@ -160,7 +160,7 @@ export class DevelopmentPipeline extends Construct {
             pre_build: {
               'on-failure': 'ABORT',
               commands: [
-                'cd chapter-5-continuous-integration-with-cdk-powered-apps/web',
+                'cd web/',
                 'yarn install',
               ],
             },
@@ -190,7 +190,7 @@ export class DevelopmentPipeline extends Construct {
           actionName: 'Source',
           owner: 'westpoint-io',
           repo: 'AWS-CDK-in-Action-Chapter-5',
-          branch: 'dev',
+          branch: 'master',
           oauthToken: secretToken,
           output: outputSource,
           trigger: GitHubTrigger.WEBHOOK,
@@ -235,6 +235,6 @@ export class DevelopmentPipeline extends Construct {
     });
 
     /* ---------- Tags ---------- */
-    Tags.of(this).add('Context', 'chapter5-development-pipeline');
+    Tags.of(this).add('Context', 'chapter5-production-pipeline');
   }
 }
