@@ -84,7 +84,10 @@ export class PipelineStack extends Construct {
             },
             pre_build: {
               'on-failure': 'ABORT',
-              commands: ['cd server/', 'yarn install'],
+              commands: [
+                'cd chapter-5-continuous-integration-with-cdk-powered-apps/server/',
+                'yarn install',
+              ],
             },
             build: {
               'on-failure': 'ABORT',
@@ -192,8 +195,8 @@ export class PipelineStack extends Construct {
       actions: [
         new GitHubSourceAction({
           actionName: 'Source',
-          owner: 'westpoint-io',
-          repo: 'AWS-CDK-in-Action-Chapter-5',
+          owner: 'kaneko0621',
+          repo: 'AWS-CDK-in-Practice-Chapter5',
           branch: `${branch}`,
           oauthToken: secretToken,
           output: outputSource,
