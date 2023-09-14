@@ -74,7 +74,7 @@ export class DevelopmentPipeline extends Construct {
             },
             pre_build: {
               'on-failure': 'ABORT',
-              commands: ['cd server/', 'yarn install'],
+              commands: ['cd server', 'yarn install'],
             },
             build: {
               'on-failure': 'ABORT',
@@ -156,7 +156,7 @@ export class DevelopmentPipeline extends Construct {
             },
             pre_build: {
               'on-failure': 'ABORT',
-              commands: ['cd web/', 'yarn install'],
+              commands: ['cd web', 'yarn install'],
             },
             build: {
               'on-failure': 'ABORT',
